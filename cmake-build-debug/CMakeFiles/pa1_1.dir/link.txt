@@ -1,0 +1,1 @@
+/usr/bin/cc -g CMakeFiles/pa1_1.dir/main.c.o CMakeFiles/pa1_1.dir/pipes.c.o CMakeFiles/pa1_1.dir/ipc.c.o -o pa1_1 
