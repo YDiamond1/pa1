@@ -9,13 +9,14 @@ void create_pipes(FILE * pipe_log){
         for(int j = 0; j <= quantity_of_processes; j++){
             if(i != j){
                 if(pipe(pipes[i][j].fd) == -1){
-                    if(fprintf(pipe_log, "pipe %i -> %i created", i, j) == 0){
-                        printf("FILE WRITING ERROR");
-                    }
+                    fprintf(pipe_log, "pipe %i -> %i fail\n", i, j);
+                }else{
+                    fprintf(pipe_log, "pipe %i -> %i created\n", i, j);
                 }
             }
         }
     }
+    fflush(pipe_log);
 }
 
 void close_unused_pipes(){
@@ -23,9 +24,13 @@ void close_unused_pipes(){
         for(int j = 0; j <= quantity_of_processes; j++){
             if(i != id && i != j){
                 close(pipes[i][j].fd[WRITE]);
+                fprintf(pipes_file, "CLOSE WRITE %i -> %i process %i\n", i, j, id);
+                fflush(pipes_file);
             }
             if(j != id && i != j){
                 close(pipes[i][j].fd[READ]);
+                fprintf(pipes_file, "CLOSE READ %i -> %i process %i\n", i, j, id);
+                fflush(pipes_file);
             }
         }
     }

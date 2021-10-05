@@ -8,6 +8,7 @@
 #include "ipc.h"
 #include <stdio.h>
 #include <unistd.h>
+#include <sys/types.h>
 
 
 #define max_processes 10
@@ -32,6 +33,7 @@ struct pipe pipes[max_processes][max_processes];
 local_id quantity_of_processes;
 pid_t parent;
 pid_t current;
+FILE * pipes_file;
 
 void create_pipes(FILE* pipe_log);
 

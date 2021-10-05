@@ -10,6 +10,8 @@ int send(void * self, local_id dst, const Message * msg){
     size_t size_of_message = sizeof(MessageHeader) + msg->s_header.s_payload_len;
 
     ssize_t bytes = write(pipes[arg][dst].fd[WRITE], msg, size_of_message);
+    fprintf(pipes_file, "sent from %i size %li to %i\n", arg, bytes, dst);
+    fflush(pipes_file);
     if(bytes == -1 || bytes < size_of_message)
         return FAIL;
     return SUCCESS;
@@ -32,12 +34,16 @@ int receive(void * self, local_id from, Message * msg){
     local_id arg = *(local_id*)self;
 
     long error = read(pipes[from][arg].fd[READ], &(msg->s_header), sizeof(MessageHeader));
+    fprintf(pipes_file, "received from %i size %li by %i\n", from, error, arg);
+    fflush(pipes_file);
     if(error < sizeof (MessageHeader)){
         return FAIL;
     }
 
     size_t nbytes = sizeof(char) * msg->s_header.s_payload_len;
     error = read(pipes[from][arg].fd[READ], &(msg->s_payload), nbytes);
+    fprintf(pipes_file, "payload received from %i size %li by %i\n", from, error, arg);
+    fflush(pipes_file);
 
     if(error < nbytes)
         return FAIL;
@@ -53,4 +59,5 @@ int receive_any(void * self, Message * msg){
             if(error == SUCCESS) return SUCCESS;
         }
     }
+    return SUCCESS;
 }

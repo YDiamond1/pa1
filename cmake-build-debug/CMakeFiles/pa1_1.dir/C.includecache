@@ -6,23 +6,27 @@
 
 #IncludeRegexTransform: 
 
+/home/diy/CLionProjects/pa1-1/ipc.c
+malloc.h
+-
+ipc.h
+/home/diy/CLionProjects/pa1-1/ipc.h
+pipes.h
+/home/diy/CLionProjects/pa1-1/pipes.h
+
 /home/diy/CLionProjects/pa1-1/ipc.h
 stddef.h
 -
 stdint.h
 -
 
-/home/diy/CLionProjects/pa1-1/main.c
-stdio.h
--
-pipes.h
-/home/diy/CLionProjects/pa1-1/pipes.h
-string.h
--
-stdlib.h
--
-
 /home/diy/CLionProjects/pa1-1/pipes.h
 ipc.h
 /home/diy/CLionProjects/pa1-1/ipc.h
+stdio.h
+-
+unistd.h
+-
+sys/types.h
+-
 
